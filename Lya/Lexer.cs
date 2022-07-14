@@ -92,7 +92,7 @@ namespace Lya
                                 currentToken.Value = ";";
                                 currentToken.Type = TokenType.SemiColon;
                                 break;
-                            case '+': case '-': case '*': case '/':
+                            case '+': case '-': case '*': case '/': case '=':
                                 currentToken.Value += currentCharacter;
                                 currentToken.Type = TokenType.Operator;
                                 break;
