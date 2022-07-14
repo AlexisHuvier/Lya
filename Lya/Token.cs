@@ -11,7 +11,9 @@
         SemiColon,
         Operator,
         Brace,
-        Hook
+        Hook,
+        KeywordType,
+        Keyword
     }
     
     public class Token

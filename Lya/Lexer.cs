@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lya
 {
@@ -117,6 +118,10 @@ namespace Lya
             tokens.Add(currentToken);
 
             tokens.RemoveAll(token => token.Type is TokenType.Unknown or TokenType.Whitespace);
+            foreach (var token in tokens.Where(token => token.Type == TokenType.Identifier && Env.Keywords.Contains(token.Value)))
+                token.Type = TokenType.Keyword;
+            foreach (var token in tokens.Where(token => token.Type == TokenType.Identifier && Env.KeywordTypes.Contains(token.Value)))
+                token.Type = TokenType.KeywordType;
             
             return tokens;
         }
