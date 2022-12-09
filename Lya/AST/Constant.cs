@@ -1,12 +1,11 @@
-﻿namespace Lya.AST
+﻿namespace Lya.AST;
+
+public class Constant: IExpression
 {
-    public class Constant: IExpression
+    public dynamic Value;
+    
+    public dynamic Eval(Env env)
     {
-        public dynamic Value;
-        
-        public dynamic Eval(Env env)
-        {
-            throw new System.NotImplementedException();
-        }
+        throw new System.NotImplementedException();
     }
 }

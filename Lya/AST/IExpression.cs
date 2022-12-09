@@ -1,7 +1,6 @@
-﻿namespace Lya.AST
+﻿namespace Lya.AST;
+
+public interface IExpression
 {
-    public interface IExpression
-    {
-        public dynamic Eval(Env env);
-    }
+    public dynamic Eval(Env env);
 }

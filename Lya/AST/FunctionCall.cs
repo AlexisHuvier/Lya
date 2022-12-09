@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace Lya.AST
+namespace Lya.AST;
+
+public class FunctionCall: IExpression
 {
-    public class FunctionCall: IExpression
+    public string FunctionName;
+    public List<IExpression> Arguments;
+    
+    public dynamic Eval(Env env)
     {
-        public string FunctionName;
-        public List<IExpression> Arguments;
-        
-        public dynamic Eval(Env env)
-        {
-            throw new System.NotImplementedException();
-        }
+        throw new System.NotImplementedException();
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace Lya.AST
+﻿namespace Lya.AST;
+
+public class VarCall: IExpression
 {
-    public class VarCall: IExpression
+    public string VarName;
+    
+    public dynamic Eval(Env env)
     {
-        public string VarName;
-        
-        public dynamic Eval(Env env)
-        {
-            throw new System.NotImplementedException();
-        }
+        throw new System.NotImplementedException();
     }
 }
