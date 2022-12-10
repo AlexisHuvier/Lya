@@ -14,11 +14,11 @@ public static class Lexer
         Number
     }
     
-    public static List<Token> Tokenize(string program)
+    public static List<Token> Tokenize(string program, string name)
     {
         var tokens = new List<Token>();
         var state = LexerState.Basic;
-        var currentToken = new Token();
+        var currentToken = new Token() { File = name };
         var line = 0;
 
         foreach (var currentLine in program.Split("\n"))
@@ -36,7 +36,8 @@ public static class Lexer
                         currentToken = new Token
                         {
                             Column = column,
-                            Line = line
+                            Line = line,
+                            File = name
                         };
                         state = LexerState.Basic;
                         continue;
@@ -54,7 +55,8 @@ public static class Lexer
                         currentToken = new Token
                         {
                             Column = column,
-                            Line = line
+                            Line = line,
+                            File = name
                         };
                         state = LexerState.Basic;
                         break;
@@ -63,7 +65,8 @@ public static class Lexer
                         currentToken = new Token
                         {
                             Column = column,
-                            Line = line
+                            Line = line,
+                            File = name
                         };
                         break;
                 }

@@ -8,7 +8,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var temp = Parser.Parse(Lexer.Tokenize("int i = 3; i = 5;"));
+        var temp = Parser.Parse(Lexer.Tokenize("int i = 3; i = 5;", "_"));
         if (temp is List<IExpression> expressions)
         {
             foreach (var expression in expressions)
