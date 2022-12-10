@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lya", "Lya\Lya.csproj", "{3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LyaExamples", "LyaExamples\LyaExamples.csproj", "{0F3D0E1F-8460-4670-8233-F749F2C88799}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LyaTests", "LyaTests\LyaTests.csproj", "{7892B49F-7084-4709-BCEE-9713A55DE381}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0F3D0E1F-8460-4670-8233-F749F2C88799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F3D0E1F-8460-4670-8233-F749F2C88799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F3D0E1F-8460-4670-8233-F749F2C88799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7892B49F-7084-4709-BCEE-9713A55DE381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7892B49F-7084-4709-BCEE-9713A55DE381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7892B49F-7084-4709-BCEE-9713A55DE381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7892B49F-7084-4709-BCEE-9713A55DE381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
