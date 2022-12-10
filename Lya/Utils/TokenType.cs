@@ -8,6 +8,7 @@ public enum TokenType
     Identifier,
     Paren,
     Number,
+    Comma,
     SemiColon,
     Operator,
     Brace,

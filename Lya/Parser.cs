@@ -41,7 +41,10 @@ public static class Parser
                     else if (expression.Count == 3)
                         expressions.Add(new FunctionCall(expression[0].Value, new List<IExpression>(), expression[0].File, expression[0].Line));
                     else
-                        expressions.Add(new FunctionCall(expression[0].Value,Parse(expression.GetRange(2, expression.Count - 3)), expression[0].File, expression[0].Line));
+                        
+                        expressions.Add(new FunctionCall(expression[0].Value,
+                            expression.GetRange(2, expression.Count - 3).Where(x => x.Type != TokenType.Comma).Select(x => Parse(new List<Token> {x})[0]).ToList(), 
+                            expression[0].File, expression[0].Line));
                     break;
                 }
                 case TokenType.KeywordType when expression.Count >= 4 && expression[1].Type == TokenType.Identifier && expression[2].Type == TokenType.Operator && expression[2].Value == "=": 
@@ -63,7 +66,6 @@ public static class Parser
                     break;
             }
         }
-
         return expressions;
     }
 }
