@@ -1,4 +1,4 @@
-﻿namespace Lya;
+﻿namespace Lya.Utils;
 
 public class VariableType
 {

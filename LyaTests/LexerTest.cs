@@ -1,3 +1,5 @@
+using Lya;
+using Lya.Utils;
 using NUnit.Framework;
 
 namespace LyaTests;

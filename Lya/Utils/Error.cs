@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lya;
+namespace Lya.Utils;
 
 public static class Error
 {

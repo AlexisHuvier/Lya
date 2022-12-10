@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lya;
+namespace Lya.Utils;
 
 public static class LyaUtils
 {

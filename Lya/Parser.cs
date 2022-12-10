@@ -1,27 +1,12 @@
 ﻿using Lya.AST;
+using Lya.Utils;
 using System.Collections.Generic;
 
 namespace Lya;
 
 public static class Parser
 {
-    static bool CheckVarExists(Env env, Token varToken)
-    {
-        if (env.IsVariableDefine(varToken.Value))
-            return true;
-        Error.SendError("VariableUndefined", $"{varToken.Value} is not defined", varToken, true);
-        return false;
-    }
-    
-    static bool CheckVarAlreadyExists(Env env, Token varToken)
-    {
-        if (!env.IsVariableDefine(varToken.Value))
-            return true;
-        Error.SendError("VariableAlreadyDefined", $"{varToken.Value} is already defined", varToken, true);
-        return false;
-    }
-    
-    public static dynamic Parse(List<Token> tokens, Env env = null)
+    public static dynamic Parse(List<Token> tokens)
     {
         var expressionsTokens = LyaUtils.SplitTokensOnType(tokens, TokenType.SemiColon);
         var expressions = new List<IExpression>();

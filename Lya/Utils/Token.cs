@@ -1,4 +1,4 @@
-﻿namespace Lya;
+﻿using System;
 
 public enum TokenType
 {
@@ -15,6 +15,7 @@ public enum TokenType
     KeywordType,
     Keyword
 }
+namespace Lya.Utils;
 
 public class Token
 {

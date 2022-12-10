@@ -6,7 +6,7 @@ namespace Lya;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         var temp = Parser.Parse(Lexer.Tokenize("int i = 3; i = 5;", "_"));
         if (temp is List<IExpression> expressions)

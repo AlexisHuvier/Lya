@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lya.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,7 @@ public static class Lexer
     {
         var tokens = new List<Token>();
         var state = LexerState.Basic;
-        var currentToken = new Token() { File = name };
+        var currentToken = new Token { File = name };
         var line = 0;
 
         foreach (var currentLine in program.Split("\n"))
@@ -46,7 +47,7 @@ public static class Lexer
                     case LexerState.Identifier when Char.IsLetter(currentCharacter):
                         currentToken.Value += currentCharacter;
                         break;
-                    case LexerState.Number when currentCharacter == '.' && !currentToken.Value.Contains("."):
+                    case LexerState.Number when currentCharacter == '.' && !currentToken.Value.Contains('.'):
                         currentToken.Value += '.';
                         break;
                     case LexerState.Number:
