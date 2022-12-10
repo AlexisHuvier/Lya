@@ -7,7 +7,7 @@ public static class Parser
 {
     static bool CheckVarExists(Env env, Token varToken)
     {
-        if (env.Variables.ContainsKey(varToken.Value))
+        if (env.IsVariableDefine(varToken.Value))
             return true;
         Error.SendError("VariableUndefined", $"{varToken.Value} is not defined", varToken, true);
         return false;
@@ -15,7 +15,7 @@ public static class Parser
     
     static bool CheckVarAlreadyExists(Env env, Token varToken)
     {
-        if (!env.Variables.ContainsKey(varToken.Value))
+        if (!env.IsVariableDefine(varToken.Value))
             return true;
         Error.SendError("VariableAlreadyDefined", $"{varToken.Value} is already defined", varToken, true);
         return false;
@@ -23,7 +23,6 @@ public static class Parser
     
     public static dynamic Parse(List<Token> tokens, Env env = null)
     {
-        env ??= Env.GetStandartEnv();
         
         var expressionsTokens = LyaUtils.SplitTokensOnType(tokens, TokenType.SemiColon);
         var expressions = new List<IExpression>();
