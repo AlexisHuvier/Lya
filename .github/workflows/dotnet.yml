@@ -9,30 +9,30 @@ on:
 jobs:
 
   build:
-
+    name: build-$({matrix.os)}
+    runs-on: $({matrix.os)}
     strategy:
       matrix:
-        dotnet-version: ['6.0.x']
-        configuration: [Debug, Release]
-
-    runs-on: windows-latest
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: '6.0.x'
       - name: Install dependencies
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
-      - name: Upload dotnet test results
+      - name: Publish
+        run: dotnet publish Lya\Lya.csproj -o Lya.exe --runtime win-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+      - name: Upload dotnet results
         uses: actions/upload-artifact@v3
         with:
-          name: dotnet-results-${{ matrix.dotnet-version }}
-          path: TestResults-${{ matrix.dotnet-version }}
+          name: Lya
+          path: Lya.exe
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
