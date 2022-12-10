@@ -1,0 +1,6 @@
+﻿int i = int c = 5;
+int b = i;
+i = b = 10;
+float d = 5.8;
+print("Les valeurs sont", i, b, c, d);
+printenv();
