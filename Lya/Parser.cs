@@ -1,12 +1,15 @@
 ﻿using Lya.AST;
 using Lya.Utils;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Lya;
 
 public static class Parser
 {
-    public static dynamic Parse(List<Token> tokens)
+    public static List<IExpression> Parse(List<Token> tokens)
     {
         var expressionsTokens = LyaUtils.SplitTokensOnType(tokens, TokenType.SemiColon);
         var expressions = new List<IExpression>();
@@ -45,12 +48,18 @@ public static class Parser
                     expressions.Add(new VarDeclaration(expression[1].Value, VariableType.GetVariableTypeFromKeyword(expression[0].Value), Parse(expression.GetRange(3, expression.Count - 3)), expression[0].File, expression[0].Line));
                     break;
                 case TokenType.Number or TokenType.String when expression.Count == 1:
-                    return new Constant(expression[0].Value, expression[0].File, expression[0].Line);
+                    if(expression[0].Type == TokenType.String)
+                        expressions.Add(new Constant(expression[0].Value, expression[0].File, expression[0].Line));
+                    else if(expression[0].Value.Contains('.'))
+                        expressions.Add(new Constant(Convert.ToSingle(expression[0].Value, CultureInfo.InvariantCulture), expression[0].File, expression[0].Line));
+                    else
+                        expressions.Add(new Constant(Convert.ToInt32(expression[0].Value), expression[0].File, expression[0].Line));
+                    break;
                 case TokenType.KeywordType:
                     Error.SendError("InvalidDeclaration", "Incomplete declaration", expression[0], true);
                     break;
                 default:
-                    Error.SendError("UnknownExpression", "Unknown expression", expression[0], true);
+                    Error.SendError("UnknownExpression", $"Unknown expression (Number of Tokens : {expression.Count} {string.Join(", ", expression.Select(x => x.Value))})", expression[0], true);
                     break;
             }
         }

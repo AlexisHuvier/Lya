@@ -1,4 +1,6 @@
-﻿namespace Lya.AST;
+﻿using Lya.Utils;
+
+namespace Lya.AST;
 
 public class VarCall: IExpression
 {
@@ -15,6 +17,9 @@ public class VarCall: IExpression
     
     public dynamic Eval(Env env)
     {
-        throw new System.NotImplementedException();
+        if (env.IsVariableDefine(VarName))
+            return env.GetVariable(VarName).Value;
+        Error.SendError("Undefined", $"Undefined Variable : {VarName}", this, true);
+        return null;
     }
 }

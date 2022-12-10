@@ -1,4 +1,6 @@
-﻿namespace Lya.AST;
+﻿using Lya.Utils;
+
+namespace Lya.AST;
 
 public interface IExpression
 {

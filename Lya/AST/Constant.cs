@@ -1,4 +1,6 @@
-﻿namespace Lya.AST;
+﻿using Lya.Utils;
+
+namespace Lya.AST;
 
 public class Constant: IExpression
 {
@@ -13,8 +15,5 @@ public class Constant: IExpression
         Line = line;
     }
 
-    public dynamic Eval(Env env)
-    {
-        throw new System.NotImplementedException();
-    }
+    public dynamic Eval(Env env) => Value;
 }

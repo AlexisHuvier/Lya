@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Lya.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lya.AST;
 
@@ -19,6 +21,9 @@ public class FunctionCall: IExpression
     
     public dynamic Eval(Env env)
     {
-        throw new System.NotImplementedException();
+        if (env.IsFunctionDefine(FunctionName))
+            return env.GetFunction(FunctionName).Eval(env, Arguments.Select(x => x.Eval(env)));
+        Error.SendError("Undefined", $"Undefined Function : {FunctionName}", this, true);
+        return null;
     }
 }
