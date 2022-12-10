@@ -23,7 +23,6 @@ public static class Parser
     
     public static dynamic Parse(List<Token> tokens, Env env = null)
     {
-        
         var expressionsTokens = LyaUtils.SplitTokensOnType(tokens, TokenType.SemiColon);
         var expressions = new List<IExpression>();
         foreach (var expression in expressionsTokens)
@@ -35,7 +34,7 @@ public static class Parser
             {
                 case TokenType.Identifier when expression.Count == 1:
                 {
-                    expressions.Add(new VarCall() { VarName = expression[0].Value });
+                    expressions.Add(new VarCall(expression[0].Value, expression[0].File, expression[0].Line));
                     break;
                 }
                 case TokenType.Identifier when expression[1].Type == TokenType.Operator && expression[1].Value == "=":
@@ -43,15 +42,15 @@ public static class Parser
                     if(expression.Count == 2)
                         Error.SendError("SyntaxError", "Missing value for affection", expression[1], true);
                     else
-                        expressions.Add(new VarAffectation() { VarName = expression[0].Value, Value = Parse(expression.GetRange(2, expression.Count - 2))});
+                        expressions.Add(new VarAffectation(expression[0].Value, Parse(expression.GetRange(2, expression.Count - 2)), expression[0].File, expression[0].Line));
 
                     break;
                 }
                 case TokenType.KeywordType when expression.Count >= 4 && expression[1].Type == TokenType.Identifier && expression[2].Type == TokenType.Operator && expression[2].Value == "=": 
-                    expressions.Add(new VarDeclaration() {VarName = expression[1].Value, Type = VariableType.GetVariableTypeFromKeyword(expression[0].Value), Value = Parse(expression.GetRange(3, expression.Count - 3))});
+                    expressions.Add(new VarDeclaration(expression[1].Value, VariableType.GetVariableTypeFromKeyword(expression[0].Value), Parse(expression.GetRange(3, expression.Count - 3)), expression[0].File, expression[0].Line));
                     break;
                 case TokenType.Number or TokenType.String when expression.Count == 1:
-                    return new Constant() { Value = expression[0].Value };
+                    return new Constant(expression[0].Value, expression[0].File, expression[0].Line);
                 case TokenType.KeywordType:
                     Error.SendError("InvalidDeclaration", "Incomplete declaration", expression[0], true);
                     break;
