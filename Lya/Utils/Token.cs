@@ -1,20 +1,5 @@
 ﻿using System;
 
-public enum TokenType
-{
-    Unknown,
-    Whitespace,
-    String,
-    Identifier,
-    Paren,
-    Number,
-    SemiColon,
-    Operator,
-    Brace,
-    Hook,
-    KeywordType,
-    Keyword
-}
 namespace Lya.Utils;
 
 public class Token
