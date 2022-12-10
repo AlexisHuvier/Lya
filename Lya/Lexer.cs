@@ -22,7 +22,7 @@ public static class Lexer
         var currentToken = new Token { File = name };
         var line = 0;
 
-        foreach (var currentLine in program.Split("\n"))
+        foreach (var currentLine in program.Replace("\r", "").Split("\n"))
         {
             line++;
             var column = 0;
