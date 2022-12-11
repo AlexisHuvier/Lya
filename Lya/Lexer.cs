@@ -42,9 +42,9 @@ public static class Lexer
                         };
                         state = LexerState.Basic;
                         continue;
-                    case LexerState.Number when Char.IsNumber(currentCharacter):
+                    case LexerState.Number when char.IsNumber(currentCharacter):
                     case LexerState.String:
-                    case LexerState.Identifier when Char.IsLetter(currentCharacter):
+                    case LexerState.Identifier when char.IsLetter(currentCharacter):
                         currentToken.Value += currentCharacter;
                         break;
                     case LexerState.Number when currentCharacter == '.' && !currentToken.Value.Contains('.'):
