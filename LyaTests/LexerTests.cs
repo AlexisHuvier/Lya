@@ -1,7 +1,20 @@
+using Lya;
+using Lya.Utils;
+
 namespace LyaTests;
 
 public class LexerTests
 {
+    [Test]
+    public void PositionTests()
+    {
+        Assert.Multiple(() =>
+        {
+            Assert.That(Lexer.Tokenize("int i = 0;", "_")[1].Column, Is.EqualTo(5));
+            Assert.That(Lexer.Tokenize("int i = 0;\nprint(i);", "_")[5].Line, Is.EqualTo(2));
+        });
+    }
+    
     [Test]
     public void TokenTypeTests()
     {
