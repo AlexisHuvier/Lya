@@ -10,7 +10,7 @@ public static class Error
         Console.WriteLine($"{name}: {message}");
         Console.WriteLine($"Token : {token}");
         if(stop)
-            Environment.Exit(1);
+            throw new Exception();
     }
 
     public static void SendError(string name, string message, IExpression expression, bool stop = false)
@@ -18,6 +18,6 @@ public static class Error
         Console.WriteLine($"{name}: {message}");
         Console.WriteLine($"Expression : {expression.GetType()} (File : {expression.File} - Line {expression.Line})");
         if(stop)
-            Environment.Exit(1);
+            throw new Exception();
     }
 }
