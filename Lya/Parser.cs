@@ -59,10 +59,10 @@ public static class Parser
                         expressions.Add(new Constant(Convert.ToInt32(expression[0].Value), expression[0].File, expression[0].Line));
                     break;
                 case TokenType.KeywordType:
-                    Error.SendError("InvalidDeclaration", "Incomplete declaration", expression[0], true);
+                    Error.SendError("Invalid", "Incomplete declaration", expression[0], true);
                     break;
                 default:
-                    Error.SendError("UnknownExpression", $"Unknown expression (Number of Tokens : {expression.Count} {string.Join(", ", expression.Select(x => x.Value))})", expression[0], true);
+                    Error.SendError("Unknown", $"Unknown expression (Tokens : {string.Join(", ", expression)})", expression[0], true);
                     break;
             }
         }
