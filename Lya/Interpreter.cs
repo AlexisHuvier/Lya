@@ -14,5 +14,6 @@ public class Interpreter
             expression.Eval(env);
     }
 
-    public static void Run(string file) => Eval(Parser.Parse(Lexer.Tokenize(File.ReadAllText(file), file)));
+    public static void RunFile(string file) => Eval(Parser.Parse(Lexer.Tokenize(File.ReadAllText(file), file)));
+    public static void Run(string program) => Eval(Parser.Parse(Lexer.Tokenize(program)));
 }
