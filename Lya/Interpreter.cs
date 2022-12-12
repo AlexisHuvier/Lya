@@ -7,6 +7,8 @@ namespace Lya;
 
 public class Interpreter
 {
+    public const string Version = "1.0.0";
+
     static void Eval(List<IExpression> expressions, Env env = null)
     {
         env ??= new Env();
