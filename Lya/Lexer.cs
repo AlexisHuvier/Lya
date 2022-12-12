@@ -15,7 +15,7 @@ public static class Lexer
         Number
     }
     
-    public static List<Token> Tokenize(string program, string name)
+    public static List<Token> Tokenize(string program, string name = "_")
     {
         var tokens = new List<Token>();
         var state = LexerState.Basic;
