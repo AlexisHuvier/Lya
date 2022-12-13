@@ -23,7 +23,7 @@ class Program
                 {
                     Interpreter.Run(line, env);
                 }
-                catch (Exception) { 
+                catch (Error.LyaErrorException) { 
                     // ignored
                 }
             }
