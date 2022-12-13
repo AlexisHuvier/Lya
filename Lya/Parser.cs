@@ -41,9 +41,8 @@ public static class Parser
                     else if (expression.Count == 3)
                         expressions.Add(new FunctionCall(expression[0].Value, new List<IExpression>(), expression[0].File, expression[0].Line));
                     else
-                        
                         expressions.Add(new FunctionCall(expression[0].Value,
-                            expression.GetRange(2, expression.Count - 3).Where(x => x.Type != TokenType.Comma).Select(x => Parse(new List<Token> {x})[0]).ToList(), 
+                            LyaUtils.SplitTokensOnType(expression.GetRange(2, expression.Count - 3), TokenType.Comma).Select(x => Parse(x)[0]).ToList(), 
                             expression[0].File, expression[0].Line));
                     break;
                 }
@@ -62,7 +61,10 @@ public static class Parser
                     Error.SendError("Invalid", "Incomplete declaration", expression[0], true);
                     break;
                 default:
-                    Error.SendError("Unknown", $"Unknown expression (Tokens : {string.Join(", ", expression)})", expression[0], true);
+                    if(expression.Count > 2 && expression.Any(x => x.Type == TokenType.Operator && x.Value != "="))
+                        expressions.Add(MathParser.ParseMathOperation(expression));
+                    else
+                        Error.SendError("Unknown", $"Unknown expression (Tokens : {string.Join(", ", expression)})", expression[0], true);
                     break;
             }
         }
