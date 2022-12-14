@@ -9,11 +9,16 @@ public class CoreFunctionsTests
     {
         var outConsole = new ConsoleOutput();
         Interpreter.Run("print(\"testing\");");
-        Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("testing"));
         Interpreter.Run("print(\"testing with\", \"many arguments\");");
-        Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("testing with many arguments"));
         Interpreter.Run("int age = 18;print(\"Vous avez\", age, \"ans.\");");
-        Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Vous avez 18 ans."));
+        Interpreter.Run("print(2.5);");
+        Assert.Multiple(() =>
+        {
+            Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("testing"));
+            Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("testing with many arguments"));
+            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Vous avez 18 ans."));
+            Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("2.5"));
+        });
     }
 
     [Test]
