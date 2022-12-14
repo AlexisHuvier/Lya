@@ -11,7 +11,7 @@ public class PrintFunction: IFunction
 
     public dynamic Eval(Env env, IEnumerable<dynamic> arguments)
     {
-        Console.WriteLine(string.Join(" ", arguments.Select(x => x.ToString())));
+        Console.WriteLine(string.Join(" ", arguments.Select(x => x is float s ? s.ToString("G", CultureInfo.InvariantCulture) : x.ToString())));
         return null;
     }
 }
