@@ -36,7 +36,7 @@ public class ParserTests
             Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("2"));
             Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("10"));
             Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("6"));
-            Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("2,5"));
+            Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("2.5"));
             Assert.That(outConsole.GetOutLines()[4], Is.EqualTo("1"));
         });
     }
