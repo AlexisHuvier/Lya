@@ -23,6 +23,25 @@ public class ParserTests
     }
 
     [Test]
+    public void MathParsingTest()
+    {
+        var outConsole = new ConsoleOutput();
+        Interpreter.Run("print(1+1);");
+        Interpreter.Run("print(1*5*(1+1));");
+        Interpreter.Run("print(4%5+2);");
+        Interpreter.Run("print(5/2);");
+        Interpreter.Run("print(5/(2+3));");
+        Assert.Multiple(() =>
+        {
+            Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("2"));
+            Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("10"));
+            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("6"));
+            Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("2,5"));
+            Assert.That(outConsole.GetOutLines()[4], Is.EqualTo("1"));
+        });
+    }
+
+    [Test]
     public void ExpressionsTests()
     {
         Assert.Multiple(() =>
