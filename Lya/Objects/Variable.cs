@@ -1,12 +1,11 @@
 ﻿using Lya.Utils;
-using System;
 
 namespace Lya.Objects;
 
 public class Variable
 {
     public string Name;
-    public readonly VariableType Type;
+    public VariableType Type;
     public dynamic Value;
 
     public Variable(string name, VariableType type, dynamic value)

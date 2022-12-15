@@ -1,8 +1,6 @@
 ﻿using Lya.AST;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Lya.Utils;
 
@@ -20,7 +18,7 @@ public class MathParser
     public static MathOperation ParseMathOperation(IReadOnlyList<Token> expression) =>
         ToMathOperation(ShuntingYard(expression));
 
-    static MathOperation.Operators GetOperator(Token token)
+    public static MathOperation.Operators GetOperator(Token token)
     {
         return token.Value switch
         {
@@ -33,7 +31,7 @@ public class MathParser
         };
     }
 
-    static IExpression GetOperand(dynamic op)
+    public static IExpression GetOperand(dynamic op)
     {
         return op switch
         {

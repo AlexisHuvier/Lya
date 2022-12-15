@@ -33,12 +33,11 @@ public class MathOperation: IExpression
     {
         return Operator switch
         {
-            Operators.Add => First.Eval(env) + Second.Eval(env),
             Operators.Sub => First.Eval(env) - Second.Eval(env),
             Operators.Mul => First.Eval(env) * Second.Eval(env),
             Operators.Div => First.Eval(env) / Convert.ToSingle(Second.Eval(env)),
             Operators.Mod => First.Eval(env) % Second.Eval(env),
-            _ => throw new Exception()
+            _ => First.Eval(env) + Second.Eval(env)
         };
     }
 }
