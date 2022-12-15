@@ -20,4 +20,10 @@
       <ProjectReference Include="..\Lya\Lya.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="basic.lya">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
