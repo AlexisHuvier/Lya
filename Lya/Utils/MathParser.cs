@@ -72,9 +72,9 @@ public class MathParser
                 case TokenType.Number:
                     operation.Add(token);
                     break;
-                case TokenType.Operator:
+                case TokenType.Operator when OperatorPrecedence.ContainsKey(token.Value):
                 {
-                    while (stack.Count > 0 && stack.Peek() is { Type: TokenType.Operator } tok)
+                    while (stack.Count > 0 && stack.Peek() is { Type: TokenType.Operator } tok && OperatorPrecedence.ContainsKey(tok.Value))
                     {
                         var c = OperatorPrecedence[token.Value].CompareTo(OperatorPrecedence[tok.Value]);
                         if (c <= 0)
