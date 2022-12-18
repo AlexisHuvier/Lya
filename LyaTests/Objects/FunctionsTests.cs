@@ -30,9 +30,20 @@ public class CoreFunctionsTests
         {
             Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("Env :"));
             Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("== Scope =="));
-            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Functions : print, printenv"));
+            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Functions : print, printenv, input"));
             Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("Variables : true (True), false (False), i (5)"));
             Assert.That(outConsole.GetOutLines()[4], Is.EqualTo("==========="));
         });
+    }
+
+    [Test]
+    public void InputTests()
+    {
+        var outConsole = new ConsoleOutput();
+        var temp = Console.In;
+        Console.SetIn(new StringReader("input super cool"));
+        Interpreter.Run("print(input(\"Mega test : \"));");
+        Assert.That(outConsole.GetOut(), Is.EqualTo("Mega test : input super cool\r\n"));
+        Console.SetIn(temp);
     }
 }
