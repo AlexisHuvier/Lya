@@ -18,7 +18,7 @@ public class Env
         Scopes = new Stack<Scope>();
         Scopes.Push(new Scope(new List<IFunction>
         {
-            new PrintFunction(), new PrintEnvFunction()
+            new PrintFunction(), new PrintEnvFunction(), new InputFunction()
         }, new List<Variable>
         {
             new("true", VariableType.Bool, true), new("false", VariableType.Bool, false)
