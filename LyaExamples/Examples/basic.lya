@@ -4,3 +4,4 @@ i = b = 10;
 float d = 5.8;
 print("Les valeurs sont", i, b, c, d);
 printenv();
+print("L'input est", input("Age : "));

@@ -6,6 +6,6 @@ internal class Program
 {
     static void Main()
     {
-        Interpreter.Run("Examples/basic.lya");
+        Interpreter.RunFile("Examples/basic.lya");
     }
 }
