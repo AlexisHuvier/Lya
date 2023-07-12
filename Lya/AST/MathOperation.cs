@@ -1,9 +1,9 @@
-﻿using Lya.Utils;
-using System;
+﻿using System;
+using Lya.Objects;
 
 namespace Lya.AST;
 
-public class MathOperation: IExpression
+public class MathOperation: Expression
 {
     public enum Operators
     {
@@ -13,31 +13,29 @@ public class MathOperation: IExpression
         Div,
         Mod
     }
-    
-    public IExpression First;
-    public IExpression Second;
-    public Operators Operator;
-    public string File { get; }
-    public int Line { get; }
 
-    public MathOperation(IExpression first, IExpression second, Operators op, string file, int line)
+    private readonly Expression _first;
+    private readonly Expression _second;
+    private readonly Operators _operator;
+
+    public MathOperation(Expression first, Expression second, Operators op, string file, int line)
     {
-        First = first;
-        Second = second;
-        Operator = op;
+        _first = first;
+        _second = second;
+        _operator = op;
         File = file;
         Line = line;
     }
 
-    public dynamic Eval(Env env)
+    public override dynamic Eval(Env env)
     {
-        return Operator switch
+        return _operator switch
         {
-            Operators.Sub => First.Eval(env) - Second.Eval(env),
-            Operators.Mul => First.Eval(env) * Second.Eval(env),
-            Operators.Div => First.Eval(env) / Convert.ToSingle(Second.Eval(env)),
-            Operators.Mod => First.Eval(env) % Second.Eval(env),
-            _ => First.Eval(env) + Second.Eval(env)
+            Operators.Sub => _first.Eval(env) - _second.Eval(env),
+            Operators.Mul => _first.Eval(env) * _second.Eval(env),
+            Operators.Div => _first.Eval(env) / Convert.ToSingle(_second.Eval(env)),
+            Operators.Mod => _first.Eval(env) % _second.Eval(env),
+            _ => _first.Eval(env) + _second.Eval(env)
         };
     }
 }

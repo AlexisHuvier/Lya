@@ -1,16 +1,18 @@
-﻿using Lya.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Lya.Objects.Function;
+namespace Lya.Objects.FunctionObjects;
 
-public class InputFunction: IFunction
+public class InputFunction: Function
 {
-    public string Name => "input";
+    public InputFunction()
+    {
+        Name = "input";
+    }
 
-    public dynamic Eval(Env env, IEnumerable<dynamic> arguments)
+    public override dynamic Eval(Env env, IEnumerable<dynamic> arguments)
     {
         Console.Write(string.Join(" ", arguments.Select(x => x is float s ? s.ToString("G", CultureInfo.InvariantCulture) : x.ToString())));
         return Console.ReadLine();

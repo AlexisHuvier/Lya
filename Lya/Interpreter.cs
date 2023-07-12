@@ -1,15 +1,15 @@
 ﻿using Lya.AST;
-using Lya.Utils;
 using System.Collections.Generic;
 using System.IO;
+using Lya.Objects;
 
 namespace Lya;
 
-public class Interpreter
+public static class Interpreter
 {
     public const string Version = "1.0.0";
 
-    static void Eval(List<IExpression> expressions, Env env = null)
+    private static void Eval(List<Expression> expressions, Env env = null)
     {
         env ??= new Env();
         foreach (var expression in expressions)

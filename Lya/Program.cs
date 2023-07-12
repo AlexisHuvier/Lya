@@ -1,10 +1,10 @@
-﻿using Lya.Utils;
-using System;
+﻿using System;
 using System.IO;
+using Lya.Objects;
 
 namespace Lya;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {

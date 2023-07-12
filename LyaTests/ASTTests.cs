@@ -1,6 +1,6 @@
-﻿using Lya.AST;
+﻿using Lya;
+using Lya.AST;
 using Lya.Objects;
-using Lya.Utils;
 
 namespace LyaTests;
 
@@ -31,8 +31,8 @@ public class ASTTests
     [Test]
     public void FunctionCallTests()
     {
-        var funcExist = new FunctionCall("print", new List<IExpression>(), "_", 1);
-        var funcNotExist = new FunctionCall("printaikj", new List<IExpression>(), "_", 1);
+        var funcExist = new FunctionCall("print", new List<Expression>(), "_", 1);
+        var funcNotExist = new FunctionCall("printaikj", new List<Expression>(), "_", 1);
         Assert.Multiple(() =>
         {
             Assert.That(funcExist.File, Is.EqualTo("_"));

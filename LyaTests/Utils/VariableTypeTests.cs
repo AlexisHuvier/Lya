@@ -1,4 +1,4 @@
-﻿using Lya.Utils;
+﻿using Lya.Objects;
 
 namespace LyaTests.Utils;
 

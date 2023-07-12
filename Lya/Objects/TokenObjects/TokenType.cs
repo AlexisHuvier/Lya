@@ -1,4 +1,4 @@
-﻿namespace Lya.Utils;
+﻿namespace Lya.Objects.TokenObjects;
 
 public enum TokenType
 {

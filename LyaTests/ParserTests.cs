@@ -1,7 +1,6 @@
 ﻿using Lya;
 using Lya.AST;
 using Lya.Objects;
-using Lya.Utils;
 
 namespace LyaTests;
 

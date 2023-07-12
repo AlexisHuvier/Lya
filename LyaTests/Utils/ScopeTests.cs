@@ -1,17 +1,14 @@
 ﻿using Lya.Objects;
-using Lya.Objects.Function;
-using Lya.Utils;
+using Lya.Objects.FunctionObjects;
 
 namespace LyaTests.Utils;
 
 public class ScopeTests
 {
-    public class Function : IFunction
+    public class FunctionBase : Function
     {
-        public string Name { get; }
-
-        public Function(string name) => Name = name;
-        public dynamic Eval(Env env, IEnumerable<dynamic> arguments) => Name;
+        public FunctionBase(string name) => Name = name;
+        public override dynamic Eval(Env env, IEnumerable<dynamic> arguments) => Name;
     }
     
     [Test]
@@ -24,10 +21,10 @@ public class ScopeTests
             Assert.That(scope.IsVariableDefine("temp"), Is.False);
             Assert.That(scope.IsDefine("temp"), Is.False);
         });
-        var temp = new Function("temp");
+        var temp = new FunctionBase("temp");
         var v = new Variable("v", VariableType.String, "v");
         scope.AddFunction(temp);
-        scope.AddFunctions(new []{new Function("temp2")});
+        scope.AddFunctions(new []{new FunctionBase("temp2")});
         scope.AddVariable(v);
         scope.AddVariables(Array.Empty<Variable>());
         

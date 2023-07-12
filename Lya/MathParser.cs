@@ -1,12 +1,13 @@
-﻿using Lya.AST;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Lya.AST;
+using Lya.Objects.TokenObjects;
 
-namespace Lya.Utils;
+namespace Lya;
 
-public class MathParser
+public static class MathParser
 {
-    static readonly Dictionary<string, int> OperatorPrecedence = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> OperatorPrecedence = new()
     {
         { "/", 3 },
         { "*", 3 },
@@ -31,7 +32,7 @@ public class MathParser
         };
     }
 
-    public static IExpression GetOperand(dynamic op)
+    public static Expression GetOperand(dynamic op)
     {
         return op switch
         {
@@ -41,7 +42,7 @@ public class MathParser
         };
     }
 
-    static MathOperation ToMathOperation(List<dynamic> operation)
+    private static MathOperation ToMathOperation(List<dynamic> operation)
     {
         var operandes = new Stack<dynamic>();
         foreach (var ope in operation)
@@ -59,7 +60,7 @@ public class MathParser
         return operandes.Pop();
     }
 
-    static List<dynamic> ShuntingYard(IReadOnlyList<Token> expression)
+    private static List<dynamic> ShuntingYard(IReadOnlyList<Token> expression)
     {
         var operation = new List<dynamic>();
         var stack = new Stack<Token>();

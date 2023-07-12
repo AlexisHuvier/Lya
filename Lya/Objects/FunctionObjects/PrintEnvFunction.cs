@@ -1,15 +1,17 @@
-﻿using Lya.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Lya.Objects.Function;
+namespace Lya.Objects.FunctionObjects;
 
-public class PrintEnvFunction: IFunction
+public class PrintEnvFunction: Function
 {
-    public string Name => "printenv";
+    public PrintEnvFunction()
+    {
+        Name = "printenv";
+    }
 
-    public dynamic Eval(Env env, IEnumerable<dynamic> arguments)
+    public override dynamic Eval(Env env, IEnumerable<dynamic> arguments)
     {
         Console.WriteLine("Env :");
         foreach (var scope in env.Scopes)

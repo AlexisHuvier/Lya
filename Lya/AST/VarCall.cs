@@ -1,25 +1,23 @@
-﻿using Lya.Utils;
+﻿using Lya.Objects;
 
 namespace Lya.AST;
 
-public class VarCall: IExpression
+public class VarCall: Expression
 {
-    public string VarName;
-    public string File { get; }
-    public int Line { get; }
+    private readonly string _varName;
 
     public VarCall(string varName, string file, int line)
     {
-        VarName = varName;
+        _varName = varName;
         File = file;
         Line = line;
     }
     
-    public dynamic Eval(Env env)
+    public override dynamic Eval(Env env)
     {
-        if (env.IsVariableDefine(VarName))
-            return env.GetVariable(VarName).Value;
-        Error.SendError("Undefined", $"Undefined Variable : {VarName}", this, true);
+        if (env.IsVariableDefine(_varName))
+            return env.GetVariable(_varName).Value;
+        Error.SendError("Undefined", $"Undefined Variable : {_varName}", this, true);
         return null;
     }
 }

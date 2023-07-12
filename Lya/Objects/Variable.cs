@@ -1,6 +1,4 @@
-﻿using Lya.Utils;
-
-namespace Lya.Objects;
+﻿namespace Lya.Objects;
 
 public class Variable
 {

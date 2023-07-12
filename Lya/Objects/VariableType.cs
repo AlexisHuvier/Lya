@@ -1,10 +1,10 @@
-﻿namespace Lya.Utils;
+﻿namespace Lya.Objects;
 
 public class VariableType
 {
-    public readonly string Name;
+    private readonly string _name;
 
-    public VariableType(string name) => Name = name;
+    private VariableType(string name) => _name = name;
 
     public static readonly VariableType Integer = new("int");
     public static readonly VariableType Bool = new("bool");
@@ -24,10 +24,10 @@ public class VariableType
         };
     }
 
-    public static bool operator ==(VariableType type1, VariableType type2) => type1?.Name == type2?.Name;
+    public static bool operator ==(VariableType type1, VariableType type2) => type1?._name == type2?._name;
     public static bool operator !=(VariableType type1, VariableType type2) => !(type1 == type2);
-    
-    protected bool Equals(VariableType other) => Name == other.Name;
+
+    private bool Equals(VariableType other) => _name == other._name;
 
     public override bool Equals(object obj)
     {
@@ -36,7 +36,7 @@ public class VariableType
         return obj.GetType() == GetType() && Equals((VariableType)obj);
     }
 
-    public override int GetHashCode() => (Name != null ? Name.GetHashCode() : 0);
+    public override int GetHashCode() => (_name != null ? _name.GetHashCode() : 0);
 
-    public override string ToString() => Name;
+    public override string ToString() => _name;
 }

@@ -1,6 +1,6 @@
 ﻿using Lya;
 
-namespace LyaTests;
+namespace LyaTests.Objects;
 
 public class CoreFunctionsTests
 {

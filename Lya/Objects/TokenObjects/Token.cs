@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lya.Utils;
+namespace Lya.Objects.TokenObjects;
 
 public class Token
 {
@@ -19,8 +19,8 @@ public class Token
                                                           t1?.File == t2?.File && t1?.Line == t2?.Line &&
                                                           t1?.Column == t2?.Column;
     public static bool operator !=(Token t1, Token t2) => !(t1 == t2);
-    
-    protected bool Equals(Token other) => Value == other.Value && Type == other.Type && File == other.File && Line == other.Line && Column == other.Column;
+
+    private bool Equals(Token other) => Value == other.Value && Type == other.Type && File == other.File && Line == other.Line && Column == other.Column;
 
     public override bool Equals(object obj)
     {

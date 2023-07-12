@@ -1,16 +1,14 @@
-﻿using Lya.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Lya.Objects;
 
 namespace Lya.AST;
 
-public class VarAffectation: IExpression
+public class VarAffectation: Expression
 {
     public string VarName;
-    public IExpression Value;
-    public string File { get; }
-    public int Line { get; }
+    public Expression Value;
 
-    public VarAffectation(string varName, IReadOnlyList<IExpression> value, string file, int line)
+    public VarAffectation(string varName, IReadOnlyList<Expression> value, string file, int line)
     {
         VarName = varName;
         Value = value[0];
@@ -18,7 +16,7 @@ public class VarAffectation: IExpression
         Line = line;
     }
     
-    public dynamic Eval(Env env)
+    public override dynamic Eval(Env env)
     {
         if (env.IsVariableDefine(VarName))
         {

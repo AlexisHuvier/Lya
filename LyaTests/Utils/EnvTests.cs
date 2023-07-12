@@ -1,17 +1,15 @@
 ﻿using Lya.Objects;
-using Lya.Objects.Function;
-using Lya.Utils;
+using Lya.Objects.FunctionObjects;
 
 namespace LyaTests.Utils;
 
 public class EnvTests
 {
-    public class Function : IFunction
+    public class FunctionBase : Function
     {
-        public string Name { get; }
 
-        public Function(string name) => Name = name;
-        public dynamic Eval(Env env, IEnumerable<dynamic> arguments) => Name;
+        public FunctionBase(string name) => Name = name;
+        public override dynamic Eval(Env env, IEnumerable<dynamic> arguments) => Name;
     }
     
     [Test]
@@ -24,10 +22,10 @@ public class EnvTests
             Assert.That(env.IsVariableDefine("temp"), Is.False);
             Assert.That(env.IsDefine("temp"), Is.False);
         });
-        var temp = new Function("temp");
+        var temp = new FunctionBase("temp");
         var v = new Variable("v", VariableType.String, "v");
         env.AddGlobalFunction(temp);
-        env.AddGlobalFunctions(new []{new Function("temp2")});
+        env.AddGlobalFunctions(new []{new FunctionBase("temp2")});
         env.AddGlobalVariable(v);
         env.AddGlobalVariables(Array.Empty<Variable>());
         

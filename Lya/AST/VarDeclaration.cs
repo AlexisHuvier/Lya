@@ -1,37 +1,34 @@
 ﻿using Lya.Objects;
-using Lya.Utils;
 using System.Collections.Generic;
 
 namespace Lya.AST;
 
-public class VarDeclaration: IExpression
+public class VarDeclaration: Expression
 {
-    public string VarName;
-    public VariableType Type;
-    public IExpression Value;
-    public string File { get; }
-    public int Line { get; }
+    private readonly string _varName;
+    private readonly VariableType _type;
+    private readonly Expression _value;
 
-    public VarDeclaration(string varName, VariableType type, IReadOnlyList<IExpression> value, string file, int line)
+    public VarDeclaration(string varName, VariableType type, IReadOnlyList<Expression> value, string file, int line)
     {
-        VarName = varName;
-        Type = type;
-        Value = value[0];
+        _varName = varName;
+        _type = type;
+        _value = value[0];
         File = file;
         Line = line;
     }
     
-    public dynamic Eval(Env env)
+    public override dynamic Eval(Env env)
     {
-        if (env.IsVariableDefine(VarName))
+        if (env.IsVariableDefine(_varName))
         {
-            Error.SendError("AlreadyDefined", $"Already Defined Variable : {VarName}", this, true);
+            Error.SendError("AlreadyDefined", $"Already Defined Variable : {_varName}", this, true);
             return null;
         }
 
-        var var = new Variable(VarName, Type, 0);
-        if(!var.SetValue(Value.Eval(env)))
-            Error.SendError("WrongType", $"Wrong Type for Variable : {VarName}. Expected : {var.Type}", this, true);
+        var var = new Variable(_varName, _type, 0);
+        if(!var.SetValue(_value.Eval(env)))
+            Error.SendError("WrongType", $"Wrong Type for Variable : {_varName}. Expected : {var.Type}", this, true);
         env.GetCurrentScope().AddVariable(var);
         return var.Value;
     }

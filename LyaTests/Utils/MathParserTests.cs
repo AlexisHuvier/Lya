@@ -1,5 +1,6 @@
-﻿using Lya.AST;
-using Lya.Utils;
+﻿using Lya;
+using Lya.AST;
+using Lya.Objects.TokenObjects;
 
 namespace LyaTests.Utils;
 

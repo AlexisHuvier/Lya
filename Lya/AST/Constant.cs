@@ -1,19 +1,17 @@
-﻿using Lya.Utils;
+﻿using Lya.Objects;
 
 namespace Lya.AST;
 
-public class Constant: IExpression
+public class Constant: Expression
 {
-    public dynamic Value;
-    public string File { get; }
-    public int Line { get; }
+    private readonly dynamic _value;
 
     public Constant(dynamic value, string file, int line)
     {
-        Value = value;
+        _value = value;
         File = file;
         Line = line;
     }
 
-    public dynamic Eval(Env env) => Value;
+    public override dynamic Eval(Env env) => _value;
 }

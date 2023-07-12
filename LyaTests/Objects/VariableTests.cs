@@ -1,7 +1,6 @@
 ﻿using Lya.Objects;
-using Lya.Utils;
 
-namespace LyaTests;
+namespace LyaTests.Objects;
 
 public class VariableTests
 {

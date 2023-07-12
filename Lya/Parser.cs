@@ -1,18 +1,19 @@
-﻿using Lya.AST;
-using Lya.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Lya.AST;
+using Lya.Objects;
+using Lya.Objects.TokenObjects;
 
 namespace Lya;
 
 public static class Parser
 {
-    public static List<IExpression> Parse(List<Token> tokens)
+    public static List<Expression> Parse(List<Token> tokens)
     {
         var expressionsTokens = LyaUtils.SplitTokensOnType(tokens, TokenType.SemiColon);
-        var expressions = new List<IExpression>();
+        var expressions = new List<Expression>();
         foreach (var expression in expressionsTokens)
         {
             if (expression.Count == 0)
@@ -39,7 +40,7 @@ public static class Parser
                     if (expression.Count == 2 || expression.Count == 3 && expression[2].Value != ")")
                         Error.SendError("SyntaxError", "Missing closing parenthesis", expression[1], true);
                     else if (expression.Count == 3)
-                        expressions.Add(new FunctionCall(expression[0].Value, new List<IExpression>(), expression[0].File, expression[0].Line));
+                        expressions.Add(new FunctionCall(expression[0].Value, new List<Expression>(), expression[0].File, expression[0].Line));
                     else
                         expressions.Add(new FunctionCall(expression[0].Value,
                             LyaUtils.SplitTokensOnType(expression.GetRange(2, expression.Count - 3), TokenType.Comma).Select(x => Parse(x)[0]).ToList(), 
