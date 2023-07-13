@@ -3,9 +3,9 @@ using Lya.Objects.TokenObjects;
 
 namespace Lya;
 
-public static class LyaUtils
+public static class LyaExtension
 {
-    public static List<List<Token>> SplitTokensOnType(List<Token> list, TokenType type)
+    public static List<List<Token>> SplitTokensOnType(this List<Token> list, TokenType type)
     {
         var finalList = new List<List<Token>>();
         var currentList = new List<Token>();
