@@ -27,11 +27,11 @@ public class Variable
     {
         return Type switch 
         {
-            VariableType.Null => Value is null,
-            VariableType.Integer => Value is int,
-            VariableType.Float => Value is float,
-            VariableType.String => Value is string,
-            VariableType.Bool => Value is bool,
+            var value when value == VariableType.Null => Value is null,
+            var value when value == VariableType.Integer => Value is int,
+            var value when value == VariableType.Float => Value is float,
+            var value when value == VariableType.String => Value is string,
+            var value when value == VariableType.Bool => Value is bool,
             _ => false
         };
     }
