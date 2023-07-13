@@ -21,7 +21,7 @@ public class LexerTests
         Assert.Multiple(() =>
         {
             Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.KeywordType, Value = "int" }, Is.EqualTo(Lexer.Tokenize("int")[0]));
-            Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.Brace, Value = "{" }, Is.EqualTo(Lexer.Tokenize("{")[0]));
+            Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.Bracket, Value = "{" }, Is.EqualTo(Lexer.Tokenize("{")[0]));
             Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.Comma, Value = "," }, Is.EqualTo(Lexer.Tokenize(",")[0]));
             Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.Hook, Value = "[" }, Is.EqualTo(Lexer.Tokenize("[")[0]));
             Assert.That(new Token { Column = 1, Line = 1, File = "_", Type = TokenType.Paren, Value = "(" }, Is.EqualTo(Lexer.Tokenize("(")[0]));

@@ -8,7 +8,7 @@ public class ScopeTests
     public class FunctionBase : Function
     {
         public FunctionBase(string name) => Name = name;
-        public override dynamic Eval(Env env, IEnumerable<dynamic> arguments) => Name;
+        public override dynamic Eval(Env env, List<dynamic> arguments) => Name;
     }
     
     [Test]
