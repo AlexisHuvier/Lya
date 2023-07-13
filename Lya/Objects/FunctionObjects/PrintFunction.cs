@@ -12,7 +12,7 @@ public class PrintFunction: Function
         Name = "print";
     }
 
-    public override dynamic Eval(Env env, IEnumerable<dynamic> arguments)
+    public override dynamic Eval(Env env, List<dynamic> arguments)
     {
         Console.WriteLine(string.Join(" ", arguments.Select(x => x is float s ? s.ToString("G", CultureInfo.InvariantCulture) : x.ToString())));
         return null;

@@ -11,7 +11,7 @@ public class PrintEnvFunction: Function
         Name = "printenv";
     }
 
-    public override dynamic Eval(Env env, IEnumerable<dynamic> arguments)
+    public override dynamic Eval(Env env, List<dynamic> arguments)
     {
         Console.WriteLine("Env :");
         foreach (var scope in env.Scopes)

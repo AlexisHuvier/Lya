@@ -6,5 +6,5 @@ public abstract class Function
 {
     public string Name { get; protected init; }
     
-    public abstract dynamic Eval(Env env, IEnumerable<dynamic> arguments);
+    public abstract dynamic Eval(Env env, List<dynamic> arguments);
 }
