@@ -25,16 +25,14 @@ public class Variable
 
     public bool IsTypeValid()
     {
-        if (Type == VariableType.Null)
-            return Value is null;
-        if (Type == VariableType.Integer)
-            return Value is int;
-        if (Type == VariableType.Float)
-            return Value is float;
-        if (Type == VariableType.String)
-            return Value is string;
-        if (Type == VariableType.Bool)
-            return Value is bool;
-        return false;
+        return Type switch 
+        {
+            VariableType.Null => Value is null,
+            VariableType.Integer => Value is int,
+            VariableType.Float => Value is float,
+            VariableType.String => Value is string,
+            VariableType.Bool => Value is bool,
+            _ => false
+        };
     }
 }
