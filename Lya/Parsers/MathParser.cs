@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Lya.AST;
 using Lya.Objects.TokenObjects;
 
-namespace Lya;
+namespace Lya.Parsers;
 
 public static class MathParser
 {
