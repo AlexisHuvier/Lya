@@ -7,6 +7,13 @@ namespace Lya;
 public static class Error
 {
     public class LyaErrorException: Exception {}
+
+    public static void SendError(string name, string message, bool stop = false)
+    {
+        Console.WriteLine($"{name}: {message}");
+        if(stop)
+            throw new LyaErrorException();
+    }
     
     public static void SendError(string name, string message, Token token, bool stop = false)
     {

@@ -11,8 +11,10 @@ public enum TokenType
     Comma,
     SemiColon,
     Operator,
-    Brace,
+    LogicOperator,
+    Bracket,
     Hook,
     KeywordType,
-    Keyword
+    Keyword,
+    Comment
 }

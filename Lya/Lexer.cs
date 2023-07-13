@@ -84,9 +84,13 @@ public static class Lexer
                             currentToken.Value += currentCharacter;
                             currentToken.Type = TokenType.Paren;
                             break;
+                        case '#':
+                            currentToken.Value += currentCharacter;
+                            currentToken.Type = TokenType.Comment;
+                            break;
                         case '{': case '}':
                             currentToken.Value += currentCharacter;
-                            currentToken.Type = TokenType.Brace;
+                            currentToken.Type = TokenType.Bracket;
                             break;
                         case '[': case ']':
                             currentToken.Value += currentCharacter;
@@ -99,6 +103,10 @@ public static class Lexer
                         case ',':
                             currentToken.Value = ",";
                             currentToken.Type = TokenType.Comma;
+                            break;
+                        case '>': case '<':
+                            currentToken.Value += currentCharacter;
+                            currentToken.Type = TokenType.LogicOperator;
                             break;
                         case '+': case '-': case '*': case '/': case '=': case '%':
                             currentToken.Value += currentCharacter;

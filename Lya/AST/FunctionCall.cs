@@ -20,7 +20,7 @@ public class FunctionCall: Expression
     public override dynamic Eval(Env env)
     {
         if (env.IsFunctionDefine(_functionName))
-            return env.GetFunction(_functionName).Eval(env, _arguments.Select(x => x.Eval(env)));
+            return env.GetFunction(_functionName).Eval(env, _arguments.Select(x => x.Eval(env)).ToList());
         Error.SendError("Undefined", $"Undefined Function : {_functionName}", this, true);
         return null;
     }
