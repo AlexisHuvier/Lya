@@ -18,13 +18,16 @@ public class IfExpression: Expression
 
     public override dynamic Eval(Env env)
     {
-        if (!_condition.Eval(env)) return false;
-        
         env.Scopes.Push(new Scope());
-        foreach (var expression in _expressions)
-            expression.Eval(env);
+        
+        if (_condition.Eval(env))
+        {
+            foreach (var expression in _expressions)
+                expression.Eval(env);
+        }
+
         env.Scopes.Pop();
-        return true;
+        return null;
 
     }
 }
