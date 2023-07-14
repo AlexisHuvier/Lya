@@ -27,18 +27,25 @@ public static class Parser
 
             switch (expression[0].Type)
             {
-                // COMMENT
+                #region Comment
+                
                 case TokenType.Comment:
                     break;
                 
-                // VARIABLE CALL
+                #endregion
+
+                #region Variable Call
+
                 case TokenType.Identifier when expression.Count == 1:
                 {
                     expressions.Add(new VarCall(expression[0].Value, expression[0].File, expression[0].Line));
                     break;
                 }
-                
-                // VARIABLE AFFECTATION
+
+                #endregion
+
+                #region Variable Affectation
+
                 case TokenType.Identifier when expression[1].Type == TokenType.Operator && expression[1].Value == "=" && (expression.Count == 2 || expression[2].Type != TokenType.Operator || expression[2].Value != "="):
                 {
                     if(expression.Count == 2)
@@ -48,8 +55,11 @@ public static class Parser
 
                     break;
                 }
-                
-                // FUNCTION CALL
+
+                #endregion
+
+                #region Function Call
+
                 case TokenType.Identifier when expression[1].Type == TokenType.Paren && expression[1].Value == "(":
                 {
                     if (expression.Count == 2 || expression.Count == 3 && expression[2].Value != ")")
@@ -62,13 +72,19 @@ public static class Parser
                             expression[0].File, expression[0].Line));
                     break;
                 }
-                
-                // VARIABLE DECLARATION
+
+                #endregion
+
+                #region Variable Declaration
+
                 case TokenType.KeywordType when expression.Count >= 4 && expression[1].Type == TokenType.Identifier && expression[2].Type == TokenType.Operator && expression[2].Value == "=": 
                     expressions.Add(new VarDeclaration(expression[1].Value, VariableType.GetVariableTypeFromKeyword(expression[0].Value), Parse(expression.GetRange(3, expression.Count - 3)), expression[0].File, expression[0].Line));
                     break;
-                
-                // CONSTANT
+
+                #endregion
+
+                #region Constant
+
                 case TokenType.Number or TokenType.String when expression.Count == 1:
                     if(expression[0].Type == TokenType.String)
                         expressions.Add(new Constant(expression[0].Value, expression[0].File, expression[0].Line));
@@ -77,37 +93,43 @@ public static class Parser
                     else
                         expressions.Add(new Constant(Convert.ToInt32(expression[0].Value), expression[0].File, expression[0].Line));
                     break;
-                
-                // CONDITION IF
+
+                #endregion
+
+                #region If Expression
+
                 case TokenType.Keyword when expression.Count >= 1 && expression[0].Value == "if" && expression[1].Type == TokenType.Paren && expression[1].Value == "(":
-                    var index = -1;
+                    var indexIf = -1;
                     for (var i = 2; i < expression.Count; i++)
                     {
                         if (expression[i].Type == TokenType.Paren && expression[i].Value == ")")
                         {
-                            index = i;
+                            indexIf = i;
                             break;
                         }
                     }
-                    if(index == -1)
+                    if(indexIf == -1)
                         Error.SendError("MissingParenthesis", "Missing closing parenthesis", expression[1], true);
-                    var condition = Parse(expression.GetRange(2, index - 2))[0];
-                    if(expression[index + 1].Type != TokenType.Bracket || expression[index + 1].Value != "{")
-                        Error.SendError("MissingBracket", "Missing opening bracket", expression[index+1], true);
-                    var expressionInIf = new List<Expression> { Parse(expression.GetRange(index + 2, expression.Count - index - 2))[0] };
+                    var conditionIf = Parse(expression.GetRange(2, indexIf - 2))[0];
+                    if(expression[indexIf + 1].Type != TokenType.Bracket || expression[indexIf + 1].Value != "{")
+                        Error.SendError("MissingBracket", "Missing opening bracket", expression[indexIf+1], true);
+                    var expressionInIf = new List<Expression> { Parse(expression.GetRange(indexIf + 2, expression.Count - indexIf - 2))[0] };
                     expressionCount++;
-                    var currentExpression = expressionsTokens[expressionCount];
-                    while (currentExpression[0].Type != TokenType.Bracket || currentExpression[0].Value != "}")
+                    var currentExpressionIf = expressionsTokens[expressionCount];
+                    while (currentExpressionIf[0].Type != TokenType.Bracket || currentExpressionIf[0].Value != "}")
                     {
-                        expressionInIf.Add(Parse(currentExpression)[0]);
+                        expressionInIf.Add(Parse(currentExpressionIf)[0]);
                         expressionCount++;
-                        currentExpression = expressionsTokens[expressionCount];
+                        currentExpressionIf = expressionsTokens[expressionCount];
                     }
 
-                    expressions.Add(new IfExpression(condition, expressionInIf, expression[0].File, expression[0].Line));
+                    expressions.Add(new IfExpression(conditionIf, expressionInIf, expression[0].File, expression[0].Line));
                     break;
-                
-                // ERROR IMCOMPLETE DECLARATION
+
+                #endregion
+
+                #region While Expression
+
                 case TokenType.Keyword when expression.Count >= 1 && expression[0].Value == "while" && expression[1].Type == TokenType.Paren && expression[1].Value == "(":
                     var indexWhile = -1;
                     for (var i = 2; i < expression.Count; i++)
@@ -135,16 +157,23 @@ public static class Parser
 
                     expressions.Add(new WhileExpression(conditionWhile, expressionInWhile, expression[0].File, expression[0].Line));
                     break;
+
+                #endregion
+
+                #region Errors - Incomplete Declaration or Expression
+
                 case TokenType.KeywordType:
                     Error.SendError("InvalidDeclaration", "Incomplete declaration", expression[0], true);
                     break;
                 
-                // ERROR IMCOMPLETE EXPRESSION
                 case TokenType.Keyword:
                     Error.SendError("InvalidExpression", "Incomplete expression", expression[0], true);
                     break;
-                
-                // MATH / LOGICAL OPERATION OR UNKNOWN EXPRESSION
+
+                #endregion
+
+                #region Math or Logical Operation / Unknown Expression
+
                 default:
                     if (expression.Count > 2)
                     {
@@ -173,6 +202,8 @@ public static class Parser
                     }
                     Error.SendError("Unknown", $"Unknown expression (Tokens : {string.Join(", ", expression)})", expression[0], true);
                     break;
+
+                #endregion
             }
 
             expressionCount++;
