@@ -8,7 +8,7 @@ public class Env
 {
     
     public static readonly List<string> KeywordTypes = new() { "int", "float", "bool", "string" };
-    public static readonly List<string> Keywords = new() { "if" };
+    public static readonly List<string> Keywords = new() { "if", "while" };
 
     public readonly Stack<Scope> Scopes;
 

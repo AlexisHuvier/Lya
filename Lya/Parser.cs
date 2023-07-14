@@ -108,6 +108,33 @@ public static class Parser
                     break;
                 
                 // ERROR IMCOMPLETE DECLARATION
+                case TokenType.Keyword when expression.Count >= 1 && expression[0].Value == "while" && expression[1].Type == TokenType.Paren && expression[1].Value == "(":
+                    var indexWhile = -1;
+                    for (var i = 2; i < expression.Count; i++)
+                    {
+                        if (expression[i].Type == TokenType.Paren && expression[i].Value == ")")
+                        {
+                            indexWhile = i;
+                            break;
+                        }
+                    }
+                    if(indexWhile == -1)
+                        Error.SendError("MissingParenthesis", "Missing closing parenthesis", expression[1], true);
+                    var conditionWhile = Parse(expression.GetRange(2, indexWhile - 2))[0];
+                    if(expression[indexWhile + 1].Type != TokenType.Bracket || expression[indexWhile + 1].Value != "{")
+                        Error.SendError("MissingBracket", "Missing opening bracket", expression[indexWhile+1], true);
+                    var expressionInWhile = new List<Expression> { Parse(expression.GetRange(indexWhile + 2, expression.Count - indexWhile - 2))[0] };
+                    expressionCount++;
+                    var currentExpressionWhile = expressionsTokens[expressionCount];
+                    while (currentExpressionWhile[0].Type != TokenType.Bracket || currentExpressionWhile[0].Value != "}")
+                    {
+                        expressionInWhile.Add(Parse(currentExpressionWhile)[0]);
+                        expressionCount++;
+                        currentExpressionWhile = expressionsTokens[expressionCount];
+                    }
+
+                    expressions.Add(new WhileExpression(conditionWhile, expressionInWhile, expression[0].File, expression[0].Line));
+                    break;
                 case TokenType.KeywordType:
                     Error.SendError("InvalidDeclaration", "Incomplete declaration", expression[0], true);
                     break;
