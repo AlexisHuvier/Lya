@@ -30,7 +30,7 @@ public class CoreFunctionsTests
         {
             Assert.That(outConsole.GetOutLines()[0], Is.EqualTo("Env :"));
             Assert.That(outConsole.GetOutLines()[1], Is.EqualTo("== Scope =="));
-            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Functions : print, printenv, input"));
+            Assert.That(outConsole.GetOutLines()[2], Is.EqualTo("Functions : print, printenv, input, cast"));
             Assert.That(outConsole.GetOutLines()[3], Is.EqualTo("Variables : true (True), false (False), i (5)"));
             Assert.That(outConsole.GetOutLines()[4], Is.EqualTo("==========="));
         });
