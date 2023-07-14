@@ -1,7 +1,6 @@
-﻿int age = cast("int", input("Age :"));
-if(age < 18) {
-    print("MINEUR");
-};
-if(age >= 18) {
-    print("MAJEUR");
-};
+﻿int i = 0;
+
+while(i < 54) {
+    print(i);
+    i = i + 1;
+}
