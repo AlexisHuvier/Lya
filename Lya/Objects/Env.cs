@@ -24,7 +24,7 @@ public class Env
         }));
     }
 
-    public Scope GetCurrentScope() => Scopes.ElementAt(Scopes.Count - 1);
+    public Scope GetCurrentScope() => Scopes.ElementAt(0);
     
     public void AddGlobalFunctions(IEnumerable<Function> functions) => Scopes.ElementAt(0).AddFunctions(functions);
     public void AddGlobalFunction(Function function) => Scopes.ElementAt(0).AddFunction(function);
